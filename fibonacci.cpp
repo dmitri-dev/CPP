@@ -25,7 +25,7 @@ void printFib() {
         }
         string run;
         cout << "Repeat?" << endl;
-        cout << "Enter [Y, n]:";
+        cout << "Enter [Y, n]: ";
         cin >> run;
         if (run == "n") {
             running = false;
