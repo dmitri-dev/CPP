@@ -1,48 +1,34 @@
 #include <iostream>
-#include <cmath>
 
 using namespace std;
 
-struct Interval {
-    pair<int, int> start, end;
-    void findInterval() const {
-        int hour = end.first,
-                minute = end.second - start.second;
+struct Interval{
+    int start_hour, start_minute, end_hour, end_minute;
+    void calculateInterval() {
+        int hour, minute;
+        hour = end_hour - start_hour;
+        minute = end_minute - start_minute;
         if (minute < 0) {
-            hour -= floor(60 / abs(minute));
-            minute = 60 - abs(minute) % 60;
+            hour += int(60 / minute);
+            minute = 60 + minute;
         }
-        hour -= start.first;
         if (hour < 0) {
-            hour %= 24;
+            hour = 24 - hour;
         }
-        cout << hour << ":" << minute << endl;
+        cout << hour << ":" << minute;
     }
 };
 
-void interval() {
-    Interval interval;
-    cout << "Enter start time" << endl;
-    cout << "Enter hour: ";
-    int start;
-    cin >> start;
-    interval.start.first = start;
-    cout << "Enter minute: ";
-    cin >> start;
-    interval.start.second = start;
-    cout << "Enter end time" << endl;
-    cout << "Enter hour: ";
-    int end;
-    cin >> end;
-    interval.end.first = end;
-    cout << "Enter minute";
-    cin >> end;
-    interval.end.second = end;
-    if (interval.start.first > interval.end.first ||
-        interval.start.first == interval.end.first &&
-        interval.start.second > interval.end.second) {
-        cout << "Invalid input";
-        exit(0);
-    }
-    interval.findInterval();
+void interval(){
+    Interval interval{};
+    int hour, minute;
+    cout << R"(Enter start time: "hour" "minute": )";
+    cin >> hour >> minute;
+    interval.start_hour = hour;
+    interval.start_minute = minute;
+    cout << R"(Enter end time: "hour" "minute": )";
+    cin >> hour >> minute;
+    interval.end_hour = hour;
+    interval.end_minute = minute;
+    interval.calculateInterval();
 }
